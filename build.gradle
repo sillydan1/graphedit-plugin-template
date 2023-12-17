@@ -1,0 +1,44 @@
+plugins {
+    id 'java';
+}
+
+group = 'com.example';
+version = '1.0.0';
+
+def gitCommitSha = { ->
+    try {
+        def stdout = new ByteArrayOutputStream();
+        def result = project.exec {
+            commandLine 'git', 'describe', '--long', '--always', '--dirty', '--exclude=*', '--abbrev=8';
+            standardOutput = stdout;
+        }
+        if(result.getExitValue() != 0)
+            return "";
+        return stdout.toString().trim();
+    } catch (Exception e) {
+        return "";
+    }
+}
+
+repositories {
+    mavenCentral();
+}
+
+dependencies {
+    implementation group: 'dk.gtz.graphedit', name: 'core', version: '1.2.0';
+}
+
+jar {
+    manifest {
+        attributes(
+                "Implementation-Title": "Description goes here",
+                "Implementation-Version": archiveVersion,
+                "Implementation-Vendor": "example.com",
+                "Implementation-URL": "Git url goes here");
+    };
+}
+
+java {
+    sourceCompatibility = gradle.ext.javaVersion;
+    targetCompatibility = gradle.ext.javaVersion;
+}

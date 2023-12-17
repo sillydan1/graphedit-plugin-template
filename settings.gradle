@@ -1,0 +1,2 @@
+gradle.ext.javaVersion = JavaVersion.VERSION_17
+rootProject.name = 'project-name-goes-here'
