@@ -1,5 +1,16 @@
 plugins {
     id 'java';
+    // NOTE: only needed if you're adding anything javafx (e.g. a new syntax, or a new side panel)
+    id 'org.openjfx.javafxplugin' version '0.0.13';
+}
+
+// NOTE: only needed if you're adding anything javafx (e.g. a new syntax, or a new side panel)
+javafx {
+    version = '20';
+    modules = ['javafx.controls',
+            'javafx.fxml',
+            'javafx.graphics',
+            'javafx.base'];
 }
 
 group = 'com.example';
@@ -26,6 +37,8 @@ repositories {
 
 dependencies {
     implementation group: 'dk.gtz.graphedit', name: 'core', version: '1.2.0';
+    // Used for getting things from the DI class
+    implementation group: 'dk.yalibs', name: 'yadi', version: '1.1.0';
 }
 
 jar {
